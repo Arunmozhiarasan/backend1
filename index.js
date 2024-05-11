@@ -6,7 +6,12 @@ const cors =require("cors");
 app.listen(8000,()=>{
     console.log(`server runs in ${process.env.PORT}`)
 })
-app.use(cors())
+app.use(cors({
+    origin: ["https://backend-ckz1.onrender.com"],
+    methods: ["POST", "GET"],
+     credentials: true
+}
+))
 
 app.use(express.json())
 
