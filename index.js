@@ -7,7 +7,7 @@ app.listen(8000,()=>{
     console.log(`server runs in ${process.env.PORT}`)
 })
 app.use(cors({
-    origin: ["https://backend-ckz1.onrender.com"],
+    origin: ["https://frontend-omega-nine-33.vercel.app"],
     methods: ["POST", "GET"],
      credentials: true
 }
