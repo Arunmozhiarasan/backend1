@@ -15,8 +15,8 @@ app.use(cors({
 
 app.use(express.json())
 
-app.get("/",cors(),(req,res)=>{
-
+app.get("/",(req,res)=>{
+    res.json("hello")
 })
 
 app.post("/",(req,res)=>{
