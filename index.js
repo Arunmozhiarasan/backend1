@@ -1,38 +1,39 @@
-const db = require("./Mongo/db")
-const express = require("express")
-const app=express()
-const cors =require("cors");
-const datas = require("./Mongo/scheme")
+const express = require("express");
+const cors = require("cors");
+const datas = require("./Mongo/scheme");
 
-app.listen(8000,()=>{
-    console.log(`server runs in ${process.env.PORT}`)
-})
+const app = express();
+const PORT = process.env.PORT || 8000;
+
 app.use(cors({
-    // origin: ["https://frontend-omega-nine-33.vercel.app"],
-    // methods: ["POST", "GET"],
-    //  credentials: true
-}
-))
+    origin: ["https://frontend-omega-nine-33.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true
+}));
+app.use(express.json());
 
-app.use(express.json())
+app.post("/datas", async (req, res) => {
+    try {
+        const data = await datas.findOne(); // Use findOne() instead of find() to get a single document
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Error fetching data" });
+    }
+});
 
-app.get("/",(req,res)=>{
-    res.json("hello")
-})
+app.post("/update", async (req, res) => {
+    try {
+        const update = req.body;
+        await datas.updateOne({}, update);
+        res.json(update);
+    } catch (error) {
+        console.error("Error updating data:", error);
+        res.status(500).json({ error: "Error updating data" });
+    }
+});
 
 
-app.post("/datas",async (req,res)=>{
-    const data=await datas.find();
-    res.send(data[0]);
-})
-
-app.post("/update",async (req,res)=>{
-    const update=req.body;
-    await datas.updateOne({},update)
-    res.send(update);
-})
-
-app.post("/test",(req,res)=>{
-    res.send({"msg":"hello"});
-})
-
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
