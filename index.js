@@ -6,9 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(cors({
-    origin: ["https://frontend-omega-nine-33.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true
+    // origin: ["https://frontend-omega-nine-33.vercel.app"],
+    // methods: ["POST", "GET"],
+    // credentials: true
 }));
 app.use(express.json());
 
